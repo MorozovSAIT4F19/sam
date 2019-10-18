@@ -1,3 +1,3 @@
 # Hello, world!
 
-Privet, Humans!
+Privet!
