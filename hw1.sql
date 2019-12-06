@@ -68,9 +68,17 @@ COMMENT ON TABLE public.scale_exp
 ---------------------------------------------------------------------------------------------------------
 -- Импортируем данные из файлов в созданные таблицы
 
--- ratings_task -> actions
--- credit_events_task -> events
--- scale_EXP_task -> scale_exp
+COPY actions(rat_id, grade, outlook, change, date, ent_name, okpo, ogrn, inn, finst, agency_id, rat_industry, rat_type,
+horizon, scale_typer, currency, backed_flag)
+FROM 'C:\Users\Сергей\Desktop\ВШЭ\1 курс\1 модуль\IT для финансистов\Семинары\ДЗ\ДЗ1\ratings_task.csv' DELIMITER ',' CSV HEADER;
+
+COPY events(inn, date, event)
+FROM 'C:\Users\Сергей\Desktop\ВШЭ\1 курс\1 модуль\IT для финансистов\Семинары\ДЗ\ДЗ1\credit_events_task.csv' DELIMITER ',' CSV HEADER;
+
+COPY scale_exp(grade, grade_id)
+FROM 'C:\Users\Сергей\Desktop\ВШЭ\1 курс\1 модуль\IT для финансистов\Семинары\ДЗ\ДЗ1\scale_EXP_task.csv' DELIMITER ',' CSV HEADER;
+
+
 
 -- Комментарий:
 -- Нееееее! Так не пойдет. Пишите код для импорта.
