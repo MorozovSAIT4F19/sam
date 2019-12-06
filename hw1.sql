@@ -66,22 +66,17 @@ COMMENT ON TABLE public.scale_exp
     IS 'Таблица содержит данные о числовой кодификации агенства Эксперт РА (EXP)';
 
 ---------------------------------------------------------------------------------------------------------
--- Импортируем данные из файлов в созданные таблицы
+-- Импортируем данные из файлов в созданные таблицы. Обращаю ваше внимание, что файл должен находиться в
+-- папке, доступной всем пользователям (~\User\Public для Windows, /tmp для Mac)
 
-COPY actions(rat_id, grade, outlook, change, date, ent_name, okpo, ogrn, inn, finst, agency_id, rat_industry, rat_type,
-horizon, scale_typer, currency, backed_flag)
-FROM 'C:\Users\Сергей\Desktop\ВШЭ\1 курс\1 модуль\IT для финансистов\Семинары\ДЗ\ДЗ1\ratings_task.csv' DELIMITER ',' CSV HEADER;
+COPY public.actions
+FROM 'C:/Users/Public/ratings_task.csv' DELIMITER ';' CSV HEADER ENCODING 'WIN1251';
 
-COPY events(inn, date, event)
-FROM 'C:\Users\Сергей\Desktop\ВШЭ\1 курс\1 модуль\IT для финансистов\Семинары\ДЗ\ДЗ1\credit_events_task.csv' DELIMITER ',' CSV HEADER;
+COPY public.events
+FROM 'C:/Users/Public/credit_events_task.csv' DELIMITER ';' CSV HEADER;
 
-COPY scale_exp(grade, grade_id)
-FROM 'C:\Users\Сергей\Desktop\ВШЭ\1 курс\1 модуль\IT для финансистов\Семинары\ДЗ\ДЗ1\scale_EXP_task.csv' DELIMITER ',' CSV HEADER;
-
-
-
--- Комментарий:
--- Нееееее! Так не пойдет. Пишите код для импорта.
+COPY public.scale_exp
+FROM 'C:/Users/Public/scale_EXP_task.csv' DELIMITER ';' CSV HEADER ENCODING 'WIN1251';
 
 ---------------------------------------------------------------------------------------------------------
 -- Создаем таблицу rat_info, которая будет содержать информацию о рейтингах
