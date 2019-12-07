@@ -1,3 +1,7 @@
+-- Замечания в рамках peer-review будут идти после сокращения PR
+-- PR: предобработка данных, очевидно, присутствует, но в инструкции не представлена
+-- PR: папка, в которой хранить данные, выбрана правильно, но нет конкретного пояснения, куда именно его нужно поместить
+
 DROP TABLE if exists public.actions
 ; 
 CREATE TABLE public.actions
@@ -31,5 +35,8 @@ ALTER TABLE public.actions ADD CONSTRAINT agency_id_con CHECK (agency_id='AKM' O
 ALTER TABLE public.actions ADD CONSTRAINT horizon_con CHECK (horizon='LT' OR horizon='ShT');
 ALTER TABLE public.actions ADD CONSTRAINT scale_typer_con CHECK (scale_typer='Isc' OR position('sc' in scale_typer) = char_length(scale_typer) - 1);
 ALTER TABLE public.actions ADD CONSTRAINT currency_con CHECK (currency='Icur' OR currency='Ncur');
+
+-- PR: без ENCODING 'WIN1251' не срабатывает
+-- PR: что значит "заголовок помещать отдельно primary key"?
 copy public.actions (rat_id, grade, outlook, change, "date", ent_name, okpo, ogrn, inn, finst, agency_id, rat_industry, rat_type, horizon, scale_typer, currency, backed_flag) FROM E'C:\\Users\\Public\\Data\\Data\\Risks\\ratings_task.csv' (format csv, delimiter ';', header True)
 
