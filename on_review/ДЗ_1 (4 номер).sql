@@ -1,3 +1,5 @@
+-- PR: код не работает (ошибка в данном месте: WHERE actions2.rat_id = actions.rat_id)
+-- Не могу понять, откуда взялось actions2
 SELECT distinct ent_name, grade, assign_date
 FROM actions, (SELECT actions2.rating_record_id, actions2.ent_name, actions2.grade, actions2."date" as assign_date
 from actions actions2
