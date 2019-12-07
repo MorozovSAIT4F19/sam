@@ -201,8 +201,27 @@ drop column ogrn,
 drop column inn,
 drop column finst;
 
---Комментарий:
--- Без связи остаются таблицы scale_exp и credit_events.
+---------------------------------------------------------------------------------------------------------
+-- Связываем таблицу events с таблицами company и scale_exp
+
+ALTER TABLE events ADD COLUMN ent_name text;
+
+UPDATE events
+SET ent_name = company.ent_name
+FROM company
+WHERE events.inn = company.inn;
+
+ALTER TABLE public.events
+ADD CONSTRAINT fr_key_3 FOREIGN KEY (ent_name) REFERENCES public.company (ent_name);
+
+ALTER TABLE events ADD COLUMN grade text;
+
+UPDATE events
+SET grade = 'D'
+WHERE event = 'dft';
+
+ALTER TABLE public.events
+ADD CONSTRAINT fr_key_4 FOREIGN KEY (grade) REFERENCES public.scale_exp (grade);
 
 ---------------------------------------------------------------------------------------------------------
 -- В сформированной базе данных составляем запрос, который выводит для выбранного вида рейтинга (например, 50) и
